@@ -62,7 +62,12 @@ else:
     # print(info)
     url = 'https://www.bing.com' + info[0]['url'].strip('&pid=hp')
     pic = requests.get(url)
-    name = date + '-' + ans.upper()
+
+    describe = info[0]['urlbase'].strip('/th?id=OHR.')
+    num = re.compile(r'\d*')
+    simple = num.sub('', describe)
+    date = info[0]['startdate']
+    name = date + '-' + simple
     picfile = open(name + '.jpg', 'wb')
     for i in pic.iter_content(10000):
         picfile.write(i)
